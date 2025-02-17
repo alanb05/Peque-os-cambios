@@ -31,14 +31,6 @@ void Histogram(double *data, double *Hist, int N_data, int N_intervalos, double 
     delta=(max-min)/N_intervalos;
 
 
-
-
-
-
-
-
-
-
     if (delta==0)printf("Error: No se pueden calcular los intervalos; Max=%lf, Min=%lf\n",max,min);
 
     for(i=0; i<N_data; i++)
@@ -62,33 +54,33 @@ int main ()
 {
    /* int N=10000,i;
     double data[N],min,max,delta;
-    GeneradorAleatorio(data,0,5,N);
+    GeneradorAleatorio(data,3,10,N);
 
-    int N_intervalos=10;
+    int N_intervalos=100;
     double Histograma[N_intervalos];
     Histogram(data,Histograma,N,N_intervalos,&delta,&min,&max);
 
-    FILE*f=fopen("hist.txt","w");
+    FILE*f=fopen("histogr.txt","w");
     for (i=0; i<N_intervalos; i++)
     {
-        fprintf(f,"%lf %lf\n ",min+d*i,Histograma[i]);
+        fprintf(f,"%lf %lf\n ",min+delta*i,Histograma[i]);
     }
 
     fclose(f);
-    return 0; */
+    return 0;*/
 
-    /*Pequeños cambiossss*/
-    int N=1000,i;
-    double data[N],min=0,max=10,delta,nombre,epsilon=0.01,cambio,x0;
+    /*PequeÃ±os cambiossss*/
+    int N=10000,i;
+    double data[N],min=3,max=10,delta,nombre,epsilon=0.1,cambio,x0;
     x0=min+(max-min)*(rand()/((double)RAND_MAX+1));
     data[0]=x0;
 
-    int N_intervalos=10;
+    int N_intervalos=100;
     double Histograma[N_intervalos];
     FILE*f=fopen("hist.txt","w");
 
     for(i=1;i<N;i++){
-        cambio=epsilon*2*(rand()/((double)RAND_MAX+1)-0.5);
+        cambio=epsilon*2*(rand()/((double)RAND_MAX+1));
         data[i]=data[i-1]+cambio;
         if(data[i]>max)data[i]=data[i]-(max-min);
         if(data[i]<min)data[i]=data[i]+(max-min);
@@ -101,4 +93,12 @@ int main ()
 
     fclose(f);
     return 0;
+    
+    /*GNUPLOTTTT
+    a=3
+    b=10
+    set yrange[0:1]
+    plot "hist.txt" u 1:2 w boxes, 1.0/(b-a)
+    */
 }
+
